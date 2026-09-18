@@ -1,0 +1,11 @@
+node_modules
+dist
+.DS_Store
+*.local
+
+# archived original static export / design-canvas source, kept locally as reference
+legacy-static/
+uploads/
+
+# local Claude Code settings
+.claude/settings.local.json

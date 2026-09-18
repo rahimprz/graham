@@ -1,0 +1,52 @@
+[
+  {
+    "id": "raiders",
+    "title": "The Great Train Robbery and The South Coast Raiders",
+    "subtitle": "A crime novel",
+    "category": "CRIME FICTION · 2024",
+    "cover": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1713183426i/211421286.jpg",
+    "description": "London, one year before the Great Train Robbery. Under pressure from a loan shark, Alfredo turns to crime—and finds himself drawn towards train robbers and murder. A fictional take on a notorious heist, informed by a detective’s experience.",
+    "url": "https://www.goodreads.com/book/show/211421286-the-great-train-robbery-and-the-south-coast-raiders",
+    "link": "Explore the book"
+  },
+  {
+    "id": "inspector",
+    "title": "An Inspector Recalls",
+    "subtitle": "Memoirs of a Railway Detective",
+    "category": "MEMOIR",
+    "cover": "https://thehistorypress.co.uk/wp-content/uploads/2026/09/9780750968348_cover-wpv_360x.jpg",
+    "description": "A candid account of a life in railway policing, from joining the force in 1968 to the gangsters, investigations and police culture of the decades that followed. Personal history meets the world behind the badge.",
+    "url": "https://thehistorypress.co.uk/publication/an-inspector-recalls/",
+    "link": "View at The History Press"
+  },
+  {
+    "id": "rot",
+    "title": "Rot at the Core",
+    "subtitle": "The Serious Crimes of a Detective Sergeant",
+    "category": "TRUE CRIME · WITH WINSTON TREW",
+    "cover": "https://thehistorypress.co.uk/wp-content/uploads/2026/09/9780750997683_cover-wpv_360x.jpg",
+    "description": "Graham Satchwell and Winston Trew examine the corruption of Detective Sergeant Derek Ridgewell and the wrongful convictions of the Oval Four. An account of injustice, its human consequences, and the long pursuit of the truth.",
+    "url": "https://thehistorypress.co.uk/publication/rot-at-the-core/",
+    "link": "View at The History Press"
+  },
+  {
+    "id": "confidential",
+    "title": "Great Train Robbery Confidential",
+    "subtitle": "The Cop and the Robber Follow New Lines of Enquiry",
+    "category": "TRUE CRIME · HISTORY",
+    "cover": "https://thehistorypress.co.uk/wp-content/uploads/2026/09/9780750992329_cover-wpv_360x.jpg",
+    "description": "An experienced railway detective revisits one of Britain’s most infamous crimes. A fresh investigation into the Great Train Robbery, looking beyond its familiar mythology and following new lines of enquiry.",
+    "url": "https://thehistorypress.co.uk/publication/great-train-robbery-confidential/",
+    "link": "View at The History Press"
+  },
+  {
+    "id": "sick-business",
+    "title": "A Sick Business",
+    "subtitle": "Counterfeit Medicines and Organised Crime",
+    "category": "INVESTIGATION · ORGANISED CRIME",
+    "cover": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1677818841i/30168739.jpg",
+    "description": "An investigation into counterfeit medicines and their connections with organised crime.",
+    "url": "https://www.goodreads.com/book/show/30168739-a-sick-business-counterfeit-medicines-and-organised-crime",
+    "link": "Explore the book"
+  }
+]
