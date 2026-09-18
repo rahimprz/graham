@@ -1,11 +1,11 @@
-import useReveal from '../hooks/useReveal.js';
+import useScrollReveal from '../hooks/useScrollReveal.js';
 
 export default function Closing() {
-  const { ref, visible } = useReveal();
+  const headingRef = useScrollReveal({ y: 24, blur: 6, scale: 0.98 });
 
   return (
-    <section ref={ref} className={`closing reveal${visible ? ' visible' : ''}`}>
-      <h2>
+    <section className="closing">
+      <h2 ref={headingRef}>
         Follow your <em>curiosity.</em>
       </h2>
       <a className="button" href="#books">

@@ -1,6 +1,8 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import books from '../data/books.json';
-import useReveal from '../hooks/useReveal.js';
+import useScrollReveal from '../hooks/useScrollReveal.js';
+import { gsap, ScrollTrigger } from '../lib/gsap.js';
 
 const TONE = {
   raiders: 'crimson',
@@ -10,11 +12,44 @@ const TONE = {
   'sick-business': 'plum',
 };
 
+function useCoverParallax() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const node = ref.current;
+    const img = node?.querySelector('img');
+    if (!node || !img) return undefined;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    gsap.fromTo(
+      img,
+      { scale: 1.2, y: -24 },
+      {
+        scale: 1,
+        y: 0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: node,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      },
+    );
+
+    return () => ScrollTrigger.getAll().forEach((t) => t.trigger === node && t.kill());
+  }, []);
+
+  return ref;
+}
+
 function BookRow({ book, flipped }) {
   const shortGenre = book.category.split(' · ')[0];
+  const coverRef = useCoverParallax();
 
   const cover = (
     <a
+      ref={coverRef}
       className="book-display"
       href={book.url}
       target="_blank"
@@ -70,15 +105,12 @@ function BookRow({ book, flipped }) {
 }
 
 export default function BookCollection() {
-  const heading = useReveal();
+  const headingRef = useScrollReveal();
 
   return (
     <section className="collection" id="books">
-      <div
-        ref={heading.ref}
-        className={`section-heading reveal${heading.visible ? ' visible' : ''}`}
-      >
-        <h2>
+      <div className="section-heading">
+        <h2 ref={headingRef}>
           Look a little <em>closer.</em>
         </h2>
         <p>

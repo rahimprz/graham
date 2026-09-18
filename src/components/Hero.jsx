@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import heroPoster from '../assets/hero-train-poster.jpg';
+import { gsap, ScrollTrigger } from '../lib/gsap.js';
 
 const eyebrowVariants = {
   hidden: { opacity: 0, y: 24 },
@@ -13,6 +14,10 @@ const eyebrowVariants = {
 
 export default function Hero() {
   const [reduceMotion, setReduceMotion] = useState(false);
+  const heroRef = useRef(null);
+  const videoWrapRef = useRef(null);
+  const booksRef = useRef(null);
+  const copyRef = useRef(null);
 
   useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -22,26 +27,46 @@ export default function Hero() {
     return () => query.removeEventListener('change', listener);
   }, []);
 
+  useEffect(() => {
+    if (reduceMotion) return undefined;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: heroRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+    tl.to(videoWrapRef.current, { yPercent: 18, ease: 'none' }, 0);
+    tl.to(booksRef.current, { yPercent: -12, ease: 'none' }, 0);
+    tl.to(copyRef.current, { yPercent: -8, opacity: 0.25, ease: 'none' }, 0);
+
+    return () => tl.scrollTrigger?.kill();
+  }, [reduceMotion]);
+
   return (
-    <section className="hero" id="home">
-      {reduceMotion ? (
-        <img className="hero-video" src={heroPoster} alt="" aria-hidden="true" />
-      ) : (
-        <video
-          className="hero-video"
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster={heroPoster}
-          aria-hidden="true"
-        >
-          <source src="/video/hero-train.mp4" type="video/mp4" />
-        </video>
-      )}
+    <section className="hero" id="home" ref={heroRef}>
+      <div className="hero-video-wrap" ref={videoWrapRef}>
+        {reduceMotion ? (
+          <img className="hero-video" src={heroPoster} alt="" aria-hidden="true" />
+        ) : (
+          <video
+            className="hero-video"
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster={heroPoster}
+            aria-hidden="true"
+          >
+            <source src="/video/hero-train.mp4" type="video/mp4" />
+          </video>
+        )}
+      </div>
       <div className="hero-scrim" aria-hidden="true" />
       <div className="hero-lines" aria-hidden="true" />
-      <div className="hero-copy">
+      <div className="hero-copy" ref={copyRef}>
         <motion.h1 variants={eyebrowVariants} custom={0.05} initial="hidden" animate="show">
           Truth has a
           <br />
@@ -76,6 +101,7 @@ export default function Hero() {
       <motion.div
         className="hero-books"
         aria-label="Featured books"
+        ref={booksRef}
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}

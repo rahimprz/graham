@@ -1,5 +1,8 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import useReveal from '../hooks/useReveal.js';
+import useScrollReveal from '../hooks/useScrollReveal.js';
+import { gsap, ScrollTrigger } from '../lib/gsap.js';
 
 const docket = [
   {
@@ -26,11 +29,32 @@ const docket = [
 
 export default function CaseFile() {
   const head = useReveal();
+  const headingRef = useScrollReveal();
+  const docketRef = useRef(null);
+  const lineRef = useRef(null);
+
+  useEffect(() => {
+    const docketNode = docketRef.current;
+    const lineNode = lineRef.current;
+    if (!docketNode || !lineNode) return undefined;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    gsap.set(lineNode, { scaleY: 0 });
+    const trigger = ScrollTrigger.create({
+      trigger: docketNode,
+      start: 'top 75%',
+      end: 'bottom 60%',
+      scrub: true,
+      onUpdate: (self) => gsap.set(lineNode, { scaleY: self.progress }),
+    });
+
+    return () => trigger.kill();
+  }, []);
 
   return (
     <section className="dossier" id="case-files">
       <div ref={head.ref} className={`dossier-head reveal${head.visible ? ' visible' : ''}`}>
-        <h2>
+        <h2 ref={headingRef}>
           Every case leaves a <em>file.</em>
         </h2>
         <p>
@@ -41,7 +65,10 @@ export default function CaseFile() {
         </p>
       </div>
       <div className="dossier-body">
-        <ol className="docket">
+        <ol className="docket" ref={docketRef}>
+          <span className="docket-line-track" aria-hidden="true">
+            <span className="docket-line" ref={lineRef} />
+          </span>
           {docket.map((entry, index) => (
             <motion.li
               key={entry.year}

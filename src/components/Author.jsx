@@ -1,16 +1,40 @@
+import { useEffect, useRef } from 'react';
 import useReveal from '../hooks/useReveal.js';
+import useScrollReveal from '../hooks/useScrollReveal.js';
+import { gsap, ScrollTrigger } from '../lib/gsap.js';
 import grahamPhoto from '../assets/graham-satchwell.jpg';
 
 export default function Author() {
   const art = useReveal();
   const copy = useReveal();
+  const headingRef = useScrollReveal();
+  const photoRef = useRef(null);
+
+  useEffect(() => {
+    const node = photoRef.current;
+    if (!node) return undefined;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    gsap.fromTo(
+      node,
+      { scale: 1.15, y: -18 },
+      {
+        scale: 1,
+        y: 0,
+        ease: 'none',
+        scrollTrigger: { trigger: node, start: 'top bottom', end: 'bottom top', scrub: true },
+      },
+    );
+
+    return () => ScrollTrigger.getAll().forEach((t) => t.trigger === node && t.kill());
+  }, []);
 
   return (
     <section className="author" id="author">
       <div ref={art.ref} className={`portrait reveal${art.visible ? ' visible' : ''}`}>
         <div className="portrait-frame">
           <figure>
-            <img src={grahamPhoto} alt="Portrait of Graham Satchwell" loading="lazy" />
+            <img ref={photoRef} src={grahamPhoto} alt="Portrait of Graham Satchwell" loading="lazy" />
           </figure>
           <div className="portrait-caption">
             <strong>Graham Satchwell</strong>
@@ -29,7 +53,7 @@ export default function Author() {
         </ul>
       </div>
       <div ref={copy.ref} className={`author-copy reveal${copy.visible ? ' visible' : ''}`}>
-        <h2>
+        <h2 ref={headingRef}>
           First, a detective.
           <br />
           Always, <em>curious.</em>
