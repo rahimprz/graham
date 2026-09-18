@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import heroPoster from '../assets/hero-train-poster.jpg';
 
 const eyebrowVariants = {
   hidden: { opacity: 0, y: 24 },
@@ -10,34 +12,50 @@ const eyebrowVariants = {
 };
 
 export default function Hero() {
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduceMotion(query.matches);
+    const listener = (event) => setReduceMotion(event.matches);
+    query.addEventListener('change', listener);
+    return () => query.removeEventListener('change', listener);
+  }, []);
+
   return (
     <section className="hero" id="home">
+      {reduceMotion ? (
+        <img className="hero-video" src={heroPoster} alt="" aria-hidden="true" />
+      ) : (
+        <video
+          className="hero-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={heroPoster}
+          aria-hidden="true"
+        >
+          <source src="/video/hero-train.mp4" type="video/mp4" />
+        </video>
+      )}
+      <div className="hero-scrim" aria-hidden="true" />
       <div className="hero-lines" aria-hidden="true" />
       <div className="hero-copy">
-        <motion.p
-          className="eyebrow"
-          variants={eyebrowVariants}
-          custom={0.05}
-          initial="hidden"
-          animate="show"
-        >
-          <span className="line" /> A LIFE ON BOTH SIDES OF THE STORY
-        </motion.p>
-        <motion.h1 variants={eyebrowVariants} custom={0.15} initial="hidden" animate="show">
+        <motion.h1 variants={eyebrowVariants} custom={0.05} initial="hidden" animate="show">
           Truth has a
           <br />
           story to <em>tell.</em>
         </motion.h1>
-        <motion.p className="intro" variants={eyebrowVariants} custom={0.25} initial="hidden" animate="show">
-          Beyond the headlines. Behind the investigations.
-          <br />
-          Step into the world of Graham Satchwell.
+        <motion.p className="intro" variants={eyebrowVariants} custom={0.2} initial="hidden" animate="show">
+          Thirty-one years inside British Transport Police CID, told by the detective who
+          lived it. Beyond the headlines. Behind the investigations.
         </motion.p>
         <motion.a
           className="button"
           href="#books"
           variants={eyebrowVariants}
-          custom={0.35}
+          custom={0.3}
           initial="hidden"
           animate="show"
         >
@@ -46,7 +64,7 @@ export default function Hero() {
         <motion.div
           className="hero-note"
           variants={eyebrowVariants}
-          custom={0.45}
+          custom={0.4}
           initial="hidden"
           animate="show"
         >

@@ -1,4 +1,5 @@
 import useReveal from '../hooks/useReveal.js';
+import grahamPhoto from '../assets/graham-satchwell.jpg';
 
 export default function Author() {
   const art = useReveal();
@@ -6,31 +7,51 @@ export default function Author() {
 
   return (
     <section className="author" id="author">
-      <div ref={art.ref} className={`author-art reveal${art.visible ? ' visible' : ''}`}>
-        <span className="eyebrow">BEHIND THE BOOKS</span>
-        <div className="initials">
-          GS<span>.</span>
+      <div ref={art.ref} className={`portrait reveal${art.visible ? ' visible' : ''}`}>
+        <div className="portrait-frame">
+          <figure>
+            <img src={grahamPhoto} alt="Portrait of Graham Satchwell" loading="lazy" />
+          </figure>
+          <div className="portrait-caption">
+            <strong>Graham Satchwell</strong>
+            <span>BTP CID, 1968–99</span>
+          </div>
         </div>
-        <div className="author-years">
-          <span>1968 — 1999</span>
-          <span>BRITISH TRANSPORT POLICE</span>
-        </div>
+        <ul className="credentials">
+          <li>
+            <b>Rank</b>
+            <span>Detective Superintendent — every CID rank in a 31-year career</span>
+          </li>
+          <li>
+            <b>Commended by</b>
+            <span>HM judges, chief constables, the DPP and the Lord Lieutenant of London</span>
+          </li>
+        </ul>
       </div>
       <div ref={copy.ref} className={`author-copy reveal${copy.visible ? ' visible' : ''}`}>
-        <p className="eyebrow">02 / THE AUTHOR</p>
         <h2>
           First, a detective.
           <br />
           Always, <em>curious.</em>
         </h2>
         <p>
-          Graham Satchwell served in the British Transport Police from 1968 to 1999, rising to
-          detective superintendent and working through every rank of its Criminal Investigation
-          Department.
+          Born into a working-class family in inner-city Birmingham, Graham Satchwell was
+          diagnosed with a serious illness at the age of seven — a condition that should
+          have kept him out of the police force altogether. He talked his way past the
+          entrance exam anyway, and joined the British Transport Police in 1968 as an
+          eighteen-year-old labourer.
         </p>
         <p>
-          His books bring that experience to the page: the people behind the cases, the workings
-          of police culture, and the questions that remain long after an investigation ends.
+          Over the next thirty-one years he rose through every rank of its Criminal
+          Investigation Department, becoming Britain&rsquo;s most senior railway detective.
+          His casework ran from organised crime and terrorism to petty theft, bomb threats,
+          the odd politician — and, once, the Queen.
+        </p>
+        <p>
+          Since retiring in 1999 he has turned that career into print: memoir, investigative
+          history, and a novel written with a real Great Train Robber looking over his
+          shoulder. His books bring the work back to the page — the people behind the cases,
+          the culture inside the force, and the questions that outlast every investigation.
         </p>
         <a
           className="text-link"
